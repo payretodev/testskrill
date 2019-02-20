@@ -1,0 +1,72 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Skrill
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+
+<script type="text/javascript">
+require(
+    [
+        'jquery',
+    ], function($){
+        'use strict';
+    //<![CDATA[
+        var list_payments = [
+            "acc",
+            "ali",
+            "amx",
+            "csi",
+            "did",
+            "dnk",
+            "ebt",
+            "epy",
+            "flexible",
+            "gcb",
+            "gir",
+            "idl",
+            "mae",
+            "msc",
+            "npy",
+            "ntl",
+            "obt",
+            "pli",
+            "psc",
+            "pch",
+            "psp",
+            "pwy",
+            "sft",
+            "vsa",
+            "glu",
+            "wlt",
+            "adb",
+            "aob",
+            "aci",
+            "aup",
+            "btc"
+        ];
+
+        for(var i=0; i<list_payments.length;i++){
+            var elmPayment = $("#skrill_skrill_payments_skrill_"+ list_payments[i] +"-head");
+            var htmlPayment = elmPayment.html();
+            var logo = "<?php echo $block->getViewFileUrl('Skrill_Skrill/images')?>/"+list_payments[i]+".png";
+
+            elmPayment.prepend('<div style="width:200px; text-align:center; vertical-align:middle; display:inline-block;"><img src="'+logo+'" style="height:40px;"></div>');
+        }
+    //]]>
+});
+</script>

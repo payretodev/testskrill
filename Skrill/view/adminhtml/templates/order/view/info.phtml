@@ -1,0 +1,59 @@
+<?php $additionalInfos = $block->getAllAdditionalInfo(); ?>
+
+<?php if (isset($additionalInfos['skrill_currency']) && isset($additionalInfos['skrill_mb_currency'])) : ?>
+    <?php if ($additionalInfos['skrill_currency'] != $additionalInfos['skrill_mb_currency']) : ?>
+        <div class="additional-information-item">
+            <?php echo "<span style='color:#f00; font-weight:bold;'>" . __('SKRILL_BACKEND_TT_ACCOUNT_CURRENCY') ." ". $additionalInfos['skrill_mb_currency'] . "</span>"; ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+
+<?php if (isset($additionalInfos['skrill_transaction_id'])) : ?>
+    <div class="additional-information-item">
+        <?php echo __('BACKEND_GENERAL_PAYMENT_ID') .' : ' . $additionalInfos['skrill_transaction_id']; ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($additionalInfos['skrill_status'])) : ?>
+    <div class="additional-information-item">
+        <?php echo __('SKRILL_BACKEND_ORDER_STATUS') .' : ' . $block->getPaymentStatus($additionalInfos['skrill_status']); ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($additionalInfos['skrill_email_account'])) : ?>
+    <div class="additional-information-item">
+        <?php echo __('SKRILL_BACKEND_EMAIL_ACCOUNT') .' : ' . $additionalInfos['skrill_email_account']; ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($additionalInfos['skrill_ip_country'])) : ?>
+    <div class="additional-information-item">
+        <?php echo __('SKRILL_BACKEND_ORDER_ORIGIN') .' : ' . $block->getCountryNameByIsoCode($additionalInfos['skrill_ip_country']); ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($additionalInfos['skrill_payment_type'])) : ?>
+    <div class="additional-information-item">
+        <?php echo __('SKRILL_BACKEND_ORDER_PM') .' : ' . __('SKRILL_FRONTEND_PM_'.$additionalInfos['skrill_payment_type']); ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($additionalInfos['skrill_issuer_country'])) : ?>
+    <div class="additional-information-item">
+        <?php echo __('SKRILL_BACKEND_ORDER_COUNTRY') .' : ' . $block->getCountryNameByIsoCode($additionalInfos['skrill_issuer_country']); ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($additionalInfos['pay_to_email'])) : ?>
+    <div class="additional-information-item">
+        <?php echo __('SKRILL_BACKEND_EMAIL_ACCOUNT') .' : ' . $additionalInfos['pay_to_email']; ?>
+    </div>
+<?php endif; ?>
+
+<?php if ($block->isShowUpdateOrderButton()) : ?>
+    <div style="margin-top: 30px"></div>
+    <a href="<?php echo $block->getUpdateOrderUrl() ?>"
+        class="action-default scalable action-save action-secondary">
+        <?php echo __('BACKEND_TT_UPDATE_ORDER') ?>
+    </a>
+<?php endif; ?>
