@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <css src="Skrill_Skrill::css/order_view_info.css"/>
+    </head>
+    <body>
+    	<referenceBlock name="sales_order_tabs">
+	        <referenceContainer name="payment_additional_info">
+	            <block class="Skrill\Skrill\Block\Adminhtml\Order\View\Info" name="skrill_order_info" template="order/view/info.phtml" />
+	        </referenceContainer>
+            <action method="addTab">
+                <argument name="name" xsi:type="string">order_howtorefund</argument>
+                <argument name="block" xsi:type="string">Skrill\Skrill\Block\Adminhtml\Order\View\Tab\Howtorefund</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

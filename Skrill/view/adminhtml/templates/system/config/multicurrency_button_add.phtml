@@ -1,0 +1,189 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Skrill
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+
+<script type="text/javascript">
+require(
+    [
+        'jquery',
+    ], function($){
+        'use strict';
+    //<![CDATA[
+    var hiddenDivs = document.getElementsByClassName("hidden_element");
+    for(var i = 0; i < hiddenDivs.length; i++) {
+        var wrapElement = hiddenDivs[i].parentElement.parentElement;
+        wrapElement.style.display="none";
+    }
+
+    var buttonElement = document.getElementsByClassName("button_delete");
+    for(var i = 0; i < buttonElement.length; i++) {
+        var wrapElement = buttonElement[i].parentElement.parentElement.parentElement;
+        var elementId = wrapElement.id;
+        var currencyElement = elementId.split('row_skrill_skrill_multicurrency_settings_skrill_multicurrency_button_delete_');
+        var currency = currencyElement[1];
+        var hiddenValue = document.getElementById('skrill_skrill_multicurrency_settings_multicurrency_hidden_'+currency).value;
+        setIdDeleteButton(currency);
+        var displayElement = document.getElementById('row_skrill_skrill_multicurrency_settings_skrill_multicurrency_title_'+currency).style.display;
+        if(displayElement == 'none' && wrapElement.id == 'row_skrill_skrill_multicurrency_settings_skrill_multicurrency_button_delete_'+currency) {
+            wrapElement.style.display="none";
+        }
+
+        $('#row_skrill_skrill_multicurrency_settings_skrill_multicurrency_title_'+currency+' .use-default').html('');
+
+        $('#row_skrill_skrill_multicurrency_settings_skrill_multicurrency_title_'+currency+' .label label span').removeAttr('data-config-scope','');
+
+    }
+    $('#row_skrill_skrill_multicurrency_settings_skrill_multicurrency_button_add span').attr('data-config-scope','');
+    if($('#row_skrill_skrill_multicurrency_settings_skrill_multicurrency_button_add .use-default') !== null){
+        $('#row_skrill_skrill_multicurrency_settings_skrill_multicurrency_button_add .use-default').attr('data-config-scope','');
+    }
+
+    //]]>
+});
+
+
+//<![CDATA[
+function deleteElement(id) {
+    var currencyElement = id.split('button_delete_');
+    var currency = currencyElement[1];
+
+    if(currency != '') {
+        displayMulticurrencyTitle(currency, 'none');
+        displayActiveField(currency, 'none');
+        displayMerchantId(currency, 'none');
+        displayEmail(currency, 'none');
+        displayApiPassword(currency, 'none');
+        displaySecretWord(currency, 'none');
+        displayButtonDelete(currency, 'none');
+        setValueHiddenField(currency, '0');
+        setValueActiveField(currency, '0');
+    }
+
+}
+
+function addElement() {
+    var currencyElement = document.querySelector('#skrill_skrill_multicurrency_settings_skrill_multicurrency_currency');
+    var currency = currencyElement.value;
+
+    if(currency != '') {
+        displayMulticurrencyTitle(currency, 'table-row');
+        displayActiveField(currency, 'table-row');
+        displayButtonDelete(currency, 'table-row');
+        enableActiveField(currency);
+        setValueHiddenField(currency, '1');
+        setIdDeleteButton(currency);
+
+        var target = document.querySelector('#row_skrill_skrill_multicurrency_settings_skrill_multicurrency_title_' + currency);
+        animate(document.scrollingElement || document.documentElement, "scrollTop", "", target.offsetTop, target.offsetTop+1000, 1000, true);
+    }
+}
+
+function displayMulticurrencyTitle(currency, displayValue) {
+    var activeRowTitle = document.querySelector('#row_skrill_skrill_multicurrency_settings_skrill_multicurrency_title_' + currency);
+    activeRowTitle.style.display = displayValue;
+}
+
+function displayActiveField(currency, displayValue) {
+    var activeRowField = document.querySelector('#row_skrill_skrill_multicurrency_settings_multicurrency_active_' + currency);
+    activeRowField.style.display = displayValue;
+}
+
+function displayButtonDelete(currency, displayValue) {
+    var activeRowField = document.querySelector('#row_skrill_skrill_multicurrency_settings_skrill_multicurrency_button_delete_' + currency);
+    activeRowField.style.display = displayValue;
+}
+
+function displayMerchantId(currency, displayValue) {
+    var activeRowField = document.querySelector('#row_skrill_skrill_multicurrency_settings_merchant_id_' + currency);
+    activeRowField.style.display = displayValue;
+}
+
+function displayEmail(currency, displayValue) {
+    var activeRowField = document.querySelector('#row_skrill_skrill_multicurrency_settings_merchant_account_' + currency);
+    activeRowField.style.display = displayValue;
+}
+
+function displayApiPassword(currency, displayValue) {
+    var activeRowField = document.querySelector('#row_skrill_skrill_multicurrency_settings_api_passwd_' + currency);
+    activeRowField.style.display = displayValue;
+}
+
+function displaySecretWord(currency, displayValue) {
+    var activeRowField = document.querySelector('#row_skrill_skrill_multicurrency_settings_secret_word_' + currency);
+    activeRowField.style.display = displayValue;
+}
+
+function enableActiveField(currency) {
+    var activeField = document.querySelector('#skrill_skrill_multicurrency_settings_multicurrency_active_' + currency);
+    activeField.removeAttribute('disabled');
+    activeField.style.display = 'block';
+}
+
+function setValueHiddenField(currency, value) {
+    var hiddenField = document.querySelector('#skrill_skrill_multicurrency_settings_multicurrency_hidden_' + currency);
+    hiddenField.value = value;
+}
+
+function setValueActiveField(currency, value) {
+    var hiddenField = document.querySelector('#skrill_skrill_multicurrency_settings_multicurrency_active_' + currency);
+    hiddenField.value = value;
+}
+
+function setIdDeleteButton(currency) {
+    var button = getButtonDelete(currency);
+    button.setAttribute('id', 'button_delete_' + currency);
+}
+
+function getButtonDelete(currency) {
+    var deleteButton = document.querySelector('#row_skrill_skrill_multicurrency_settings_skrill_multicurrency_button_delete_' + currency+ ' td.value button');
+    return deleteButton;
+}
+
+function animate(elem, style, unit, from, to, time, prop) {
+    if (!elem) {
+        return;
+    }
+    var start = new Date().getTime(),
+        timer = setInterval(function () {
+            var step = Math.min(1, (new Date().getTime() - start) / time);
+            if (prop) {
+                elem[style] = (from + step * (to - from))+unit;
+            } else {
+                elem.style[style] = (from + step * (to - from))+unit;
+            }
+            if (step === 1) {
+                clearInterval(timer);
+            }
+        }, 25);
+    if (prop) {
+          elem[style] = from+unit;
+    } else {
+          elem.style[style] = from+unit;
+    }
+}
+
+//]]>
+</script>
+
+<div class="pp-buttons-container">
+    <button type="button" id="<?php echo $block->getId() ?>" onclick="<?php echo $block->escapeHtml($block->getOnclick()); ?>">
+        <span><span><span><?php echo $block->escapeHtml($block->getButtonLabel()); ?></span></span></span>
+    </button>
+</div>

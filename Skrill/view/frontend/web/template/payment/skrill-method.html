@@ -1,0 +1,55 @@
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+    <div class="payment-method-title field choice">
+        <input type="radio"
+               name="payment[method]"
+               class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>        
+            <!-- ko if: (getLogos().display == 'block') -->
+            <label data-bind="attr: {'for': getCode()}" class="label" for="{'for': getCode()}">
+                <img data-bind="attr: {src: getLogos().url, alt: getTitle()}, style: {height: getLogos().height, 'vertical-align': 'middle'}" />
+            </label>
+            <!--/ko-->
+            <!-- ko if: (getLogos().display != 'block') -->
+            <label data-bind="attr: {'for': getCode()}" class="label" for="{'for': getCode()}">
+                <span data-bind="i18n: getTitle()"></span>
+            </label>
+            <!--/ko-->
+    </div>
+    <div class="payment-method-content">
+        <ul data-bind="foreach: { data: getLogos().supportedBanks, as: 'item' }, style:{'list-style': 'none', 'padding-left': '0'}">
+            <li data-bind="style: {'display': 'inline-block', 'margin-right': '5px'}">
+                <img data-bind="attr: {src: item}, style: {'height': '30px', 'vertical-align': 'middle'}" />
+            </li>
+        </ul>
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button class="action primary checkout"
+                        type="submit"
+                        data-bind="click: placeOrderAction, enable: (getCode() == isChecked())"
+                        disabled>
+                    <span data-bind="i18n: 'Place Order'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

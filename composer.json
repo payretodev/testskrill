@@ -1,0 +1,23 @@
+{
+    "name": "payretodev/testskrill",
+    "type": "package",
+    "description": "Create overview sample can intergrate other project",
+    "keywords": ["payretodev","testskrill"],
+    "homepage": "https://github.com/payretodev/testskrill",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Foostart",
+            "email": "nguyenanhhoanld@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.0",
+        "testskrill/Skrill": "dev-master"
+    },
+     "autoload": {
+        "psr-0": {"testskrill": "Skrill/"}
+    }
+}
